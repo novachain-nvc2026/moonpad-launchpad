@@ -1,8 +1,10 @@
- 
+
 import { useState } from 'react'
+import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react'
 import './App.css'
 
 function App() {
+  const wallet = useTonWallet()
   const [chain, setChain] = useState('TON')
   const [tokenName, setTokenName] = useState('')
   const [symbol, setSymbol] = useState('')
@@ -28,9 +30,7 @@ function App() {
           <span>MOONPAD</span>
         </a>
         <span className="network-pill">TESTNET MODE</span>
-        <button className="wallet-button" onClick={() => setNotice('Wallet connection is not implemented yet.')}>
-          Connect Wallet
-        </button>
+        <TonConnectButton />
       </header>
 
       <section className="hero">
@@ -100,8 +100,13 @@ function App() {
 
           {notice && <p className="notice" role="status">{notice}</p>}
           <p className="disclaimer">
-            Preview only. Wallet connection and on-chain creation are not active.
+            Preview only. Token creation is not active.
           </p>
+          {wallet && (
+            <p className="notice" role="status">
+              TON wallet connected. No transaction has been sent.
+            </p>
+          )}
         </form>
 
         <aside className="preview-card">
@@ -132,4 +137,3 @@ function App() {
 }
 
 export default App
-
